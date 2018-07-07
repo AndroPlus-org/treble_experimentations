@@ -261,7 +261,7 @@ function init_patches() {
 }
 
 function sync_repo() {
-    repo sync -c -j "$jobs" --force-sync
+    repo sync -c -j "$jobs" --force-sync -f
 }
 
 function patch_things() {
