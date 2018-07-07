@@ -13,7 +13,7 @@ elif [[ $(uname -s) = "Linux" ]];then
 fi
 
 ## handle command line arguments
-read -p "Do you want to sync? " choice 
+read -p "Do you want to sync? " choice
 
 function help() {
     cat <<EOF
@@ -228,7 +228,7 @@ function init_main_repo() {
 function clone_or_checkout() {
     local dir="$1"
     local repo="$2"
-    
+
     if [[ -d "$dir" ]];then
         (
             cd "$dir"
@@ -248,13 +248,13 @@ function init_local_manifest() {
 function init_patches() {
     if [[ -n "$treble_generate" ]]; then
         clone_or_checkout patches treble_patches
-       
+
         # We don't want to replace from AOSP since we'll be applying
         # patches by hand
         rm -f .repo/local_manifests/replace.xml
 
         # should I do this? will it interfere with building non-gapps images?
-        # rm -f .repo/local_manifests/opengapps.xml
+        rm -f .repo/local_manifests/opengapps.xml
     fi
 }
 
