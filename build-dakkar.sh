@@ -44,7 +44,8 @@ ROM types:
   pixel90
   crdroid
   mokee
-  aicp
+  aicpo81
+  aicpp90
   aokp
   aex
   slim
@@ -136,7 +137,7 @@ function get_rom_type() {
                 extra_make_options="WITHOUT_CHECK_API=true"
                 ;;
             pixel90)
-                mainrepo="https://github.com/PixelExperience-P/manifest.git"
+                mainrepo="https://github.com/ixelExperience-P/manifest.git"
                 mainbranch="pie"
                 localManifestBranch="android-9.0"
                 treble_generate="pixel"
@@ -156,10 +157,17 @@ function get_rom_type() {
                 treble_generate="mokee"
                 extra_make_options="WITHOUT_CHECK_API=true"
                 ;;
-            aicp)
+            aicpo81)
                 mainrepo="https://github.com/AICP/platform_manifest.git"
                 mainbranch="o8.1"
                 localManifestBranch="android-8.1"
+                treble_generate="aicp"
+                extra_make_options="WITHOUT_CHECK_API=true"
+                ;;
+            aicpp90)
+                mainrepo="https://github.com/AICP/platform_manifest.git"
+                mainbranch="p9.0"
+                localManifestBranch="android-9.0"
                 treble_generate="aicp"
                 extra_make_options="WITHOUT_CHECK_API=true"
                 ;;
@@ -296,7 +304,7 @@ function init_patches() {
         # patches by hand
         rm -f .repo/local_manifests/replace.xml
 
-        # Remove exfat entry from local_manifest if it exists in ROM manifest 
+        # Remove exfat entry from local_manifest if it exists in ROM manifest
         if grep -rqF exfat .repo/manifests || grep -qF exfat .repo/manifest.xml;then
             sed -i -E '/external\/exfat/d' .repo/local_manifests/manifest.xml
         fi
