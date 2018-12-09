@@ -14,7 +14,7 @@ aosp="android-8.1.0_r48"
 phh="android-8.1"
 
 if [ "$1" == "android-9.0" ];then
-    aosp="android-9.0.0_r16"
+    aosp="android-9.0.0_r21"
     phh="android-9.0"
 fi
 
@@ -58,6 +58,8 @@ buildVariant treble_arm64_bfS-userdebug arm64-ab-floss-su
 
 buildVariant treble_arm_avN-userdebug arm-aonly-vanilla-nosu
 [ "$1" != "android-9.0" ] && buildVariant treble_arm_aoS-userdebug arm-aonly-go-su
+
+buildVariant treble_a64_avN-userdebug arm32_binder64-aonly-vanilla-nosu
 
 if [ "$release" == true ];then
     (
