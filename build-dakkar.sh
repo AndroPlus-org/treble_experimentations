@@ -353,6 +353,7 @@ function build_variant() {
     make $extra_make_options BUILD_NUMBER="$rom_fp" vndk-test-sepolicy
     cp "$OUT"/system.img release/"$rom_fp"/system-"$2".img
     cp "$OUT"/*hangelog.txt release/"$rom_fp"/Changelog.txt
+    rm -rf "$OUT"/*hangelog.txt
     zip -rj release/"$rom_fp"/system-"$2".img.zip release/"$rom_fp"/system-"$2".img
 }
 
