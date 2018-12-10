@@ -315,7 +315,9 @@ function init_patches() {
         fi
 
         # should I do this? will it interfere with building non-gapps images?
-        rm -f .repo/local_manifests/opengapps.xml
+        if [[ "$gapps_selection" == *"v"* ]]; then
+            rm -f .repo/local_manifests/opengapps.xml
+        fi
     fi
 }
 
