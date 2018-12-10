@@ -315,9 +315,7 @@ function init_patches() {
         fi
 
         # should I do this? will it interfere with building non-gapps images?
-        if [[ "$gapps_selection" == *"v"* ]]; then
-            rm -f .repo/local_manifests/opengapps.xml
-        fi
+        rm -f .repo/local_manifests/opengapps.xml
     fi
 }
 
@@ -354,7 +352,7 @@ function build_variant() {
     make $extra_make_options BUILD_NUMBER="$rom_fp" -j "$jobs" systemimage
     make $extra_make_options BUILD_NUMBER="$rom_fp" vndk-test-sepolicy
     cp "$OUT"/system.img release/"$rom_fp"/system-"$2".img
-    cp "$OUT"/Changelog.txt release/"$rom_fp"/Changelog.txt
+    cp "$OUT"/*hangelog.txt release/"$rom_fp"/Changelog.txt
     zip -rj release/"$rom_fp"/system-"$2".img.zip release/"$rom_fp"/system-"$2".img
 }
 
@@ -388,6 +386,16 @@ if [[ $choice == *"y"* ]];then
 init_main_repo
 init_local_manifest
 init_patches
+
+if [[ "$@" == *"pixel90"* ]];then
+    rm -rf patches/patches/vendor_aicp
+elif [[ "$@" == *"aicpp90"* ]];then
+    rm -rf patches/patches/vendor_aosp
+else
+    rm -rf patches/patches/vendor_aicp
+    rm -rf patches/patches/vendor_aosp
+fi
+
 sync_repo
 fi
 patch_things
