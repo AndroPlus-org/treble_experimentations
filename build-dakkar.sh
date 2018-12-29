@@ -405,6 +405,9 @@ else
 fi
 
 sync_repo
+if [[ "$@" == *"pixeldust90"* ]];then
+    rm -rf system/extras/su
+fi
 fi
 patch_things
 jack_env
