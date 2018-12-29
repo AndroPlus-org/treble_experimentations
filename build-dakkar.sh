@@ -147,6 +147,13 @@ function get_rom_type() {
                 treble_generate="pixel"
                 extra_make_options="WITHOUT_CHECK_API=true"
                 ;;
+            pixeldust90)
+                mainrepo="https://github.com/pixeldustproject-p/manifest.git"
+                mainbranch="p"
+                localManifestBranch="android-9.0"
+                treble_generate="pixeldust"
+                extra_make_options="WITHOUT_CHECK_API=true"
+                ;;
             crdroid)
                 mainrepo="https://github.com/crdroidandroid/android.git"
                 mainbranch="8.1"
