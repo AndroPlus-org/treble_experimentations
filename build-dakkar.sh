@@ -357,7 +357,7 @@ function build_variant() {
     lunch "$1"
     make $extra_make_options BUILD_NUMBER="$rom_fp" installclean
     make $extra_make_options BUILD_NUMBER="$rom_fp" -j "$jobs" systemimage
-    make $extra_make_options BUILD_NUMBER="$rom_fp" vndk-test-sepolicy
+    # make $extra_make_options BUILD_NUMBER="$rom_fp" vndk-test-sepolicy
     cp "$OUT"/system.img release/"$rom_fp"/system-"$2".img
     cp "$OUT"/*hangelog.txt release/"$rom_fp"/Changelog.txt
     rm -rf "$OUT"/*hangelog.txt
