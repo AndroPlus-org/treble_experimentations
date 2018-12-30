@@ -397,11 +397,17 @@ init_patches
 
 if [[ "$@" == *"pixel90"* ]];then
     rm -rf patches/patches/vendor_aicp
+    rm -rf patches/patches/vendor_googleapps
 elif [[ "$@" == *"aicpp90"* ]];then
+    rm -rf patches/patches/vendor_aosp
+    rm -rf patches/patches/vendor_googleapps
+elif [[ "$@" == *"pixeldust90"* ]];then
+    rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_aosp
 else
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_aosp
+    rm -rf patches/patches/vendor_googleapps
 fi
 
 sync_repo
