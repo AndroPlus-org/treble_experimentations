@@ -182,6 +182,13 @@ function get_rom_type() {
                 treble_generate="aicp"
                 extra_make_options="WITHOUT_CHECK_API=true"
                 ;;
+            flokop)
+                mainrepo="https://github.com/FlokoROM/manifesto.git"
+                mainbranch="p9.0"
+                localManifestBranch="android-9.0"
+                treble_generate="floko"
+                extra_make_options="WITHOUT_CHECK_API=true"
+                ;;
             aokp)
                 mainrepo="https://github.com/AOKP/platform_manifest.git"
                 mainbranch="oreo"
@@ -399,6 +406,9 @@ if [[ "$@" == *"pixel90"* ]];then
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_googleapps
 elif [[ "$@" == *"aicpp90"* ]];then
+    rm -rf patches/patches/vendor_aosp
+    rm -rf patches/patches/vendor_googleapps
+elif [[ "$@" == *"flokop"* ]];then
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_googleapps
 elif [[ "$@" == *"pixeldust90"* ]];then
