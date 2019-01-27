@@ -128,8 +128,8 @@ function get_rom_type() {
                 ;;
             rr)
                 mainrepo="https://github.com/ResurrectionRemix/platform_manifest.git"
-                mainbranch="oreo"
-                localManifestBranch="android-8.1"
+                mainbranch="pie"
+                localManifestBranch="android-9.0"
                 treble_generate="rr"
                 extra_make_options="WITHOUT_CHECK_API=true"
                 ;;
@@ -405,23 +405,34 @@ init_patches
 if [[ "$@" == *"pixel90"* ]];then
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_googleapps
+    rm -rf patches/patches/vendor_rr
 elif [[ "$@" == *"aicpp90"* ]];then
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_googleapps
+    rm -rf patches/patches/vendor_rr
 elif [[ "$@" == *"flokop"* ]];then
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_googleapps
+    rm -rf patches/patches/vendor_rr
 elif [[ "$@" == *"pixeldust90"* ]];then
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_aosp
+    rm -rf patches/patches/vendor_rr
+elif [[ "$@" == *"rr"* ]];then
+    rm -rf patches/patches/vendor_aicp
+    rm -rf patches/patches/vendor_aosp
+    rm -rf patches/patches/vendor_googleapps
 else
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_googleapps
+    rm -rf patches/patches/vendor_rr
 fi
 
 sync_repo
 if [[ "$@" == *"pixeldust90"* ]];then
+    rm -rf system/extras/su
+elif [[ "$@" == *"rr"* ]];then
     rm -rf system/extras/su
 fi
 fi
