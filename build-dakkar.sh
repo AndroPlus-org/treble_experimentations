@@ -329,7 +329,7 @@ function init_patches() {
         fi
 
         # should I do this? will it interfere with building non-gapps images?
-        rm -f .repo/local_manifests/opengapps.xml
+        #rm -f .repo/local_manifests/opengapps.xml
     fi
 }
 
@@ -427,6 +427,10 @@ else
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_googleapps
     rm -rf patches/patches/vendor_rr
+fi
+
+if [[ "$@" != *"gapps"* ]];then
+    rm -f .repo/local_manifests/opengapps.xml
 fi
 
 sync_repo
