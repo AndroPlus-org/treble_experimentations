@@ -441,6 +441,17 @@ elif [[ "$@" == *"rr"* ]];then
 fi
 fi
 patch_things
+
+if [[ "$@" == *"rr"* ]];then
+    pushd `pwd`
+    cd vendor/rr
+    patch="../../patches/patches/vendor_rr/0002-wallpaper.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+    popd
+fi
+
 jack_env
 
 . build/envsetup.sh
