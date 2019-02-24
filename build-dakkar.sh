@@ -403,6 +403,7 @@ init_local_manifest
 init_patches
 
 if [[ "$@" == *"pixel90"* ]];then
+    rm -rf patches/patches/device_aicp_sepolicy/
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_googleapps
     rm -rf patches/patches/vendor_rr
@@ -415,14 +416,17 @@ elif [[ "$@" == *"flokop"* ]];then
     rm -rf patches/patches/vendor_googleapps
     rm -rf patches/patches/vendor_rr
 elif [[ "$@" == *"pixeldust90"* ]];then
+    rm -rf patches/patches/device_aicp_sepolicy/
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_rr
 elif [[ "$@" == *"rr"* ]];then
+    rm -rf patches/patches/device_aicp_sepolicy/
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_googleapps
 else
+    rm -rf patches/patches/device_aicp_sepolicy/
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_googleapps
