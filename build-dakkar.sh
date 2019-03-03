@@ -463,6 +463,15 @@ if [[ "$@" == *"rr"* ]];then
     fi
     popd
 fi
+if [[ "$@" == *"aex"* ]];then
+    pushd `pwd`
+    cd vendor/aosp
+    patch="../../patches/patches/vendor_aosp/0002-Remove-Turbo.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+    popd
+fi
 
 jack_env
 
