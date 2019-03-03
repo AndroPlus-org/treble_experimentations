@@ -445,6 +445,10 @@ if [[ "$@" != *"gapps"* ]];then
     rm -f .repo/local_manifests/opengapps.xml
 fi
 
+if [[ "$@" != *"aex"* ]];then
+    rm -f .repo/local_manifests/device.xml
+fi
+
 sync_repo
 if [[ "$@" == *"pixeldust90"* ]];then
     rm -rf system/extras/su
