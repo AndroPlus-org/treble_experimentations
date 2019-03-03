@@ -204,7 +204,7 @@ function get_rom_type() {
                 mainbranch="9.x"
                 localManifestBranch="android-9.0"
                 treble_generate="aex"
-                extra_make_options="WITHOUT_CHECK_API=true ALLOW_MISSING_DEPENDENCIES=true"
+                extra_make_options="WITHOUT_CHECK_API=true"
                 ;;
             slim)
                 mainrepo="https://github.com/SlimRoms/platform_manifest.git"
