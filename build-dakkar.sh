@@ -428,6 +428,11 @@ elif [[ "$@" == *"rr"* ]];then
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_googleapps
+elif [[ "$@" == *"aex"* ]];then
+    rm -rf patches/patches/device_aicp_sepolicy/
+    rm -rf patches/patches/vendor_aicp
+    rm -rf patches/patches/vendor_rr
+    rm -rf patches/patches/vendor_googleapps
 else
     rm -rf patches/patches/device_aicp_sepolicy/
     rm -rf patches/patches/vendor_aicp
