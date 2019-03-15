@@ -186,8 +186,8 @@ function get_rom_type() {
                 extra_make_options="WITHOUT_CHECK_API=true"
                 ;;
             flokop)
-                mainrepo="https://github.com/FlokoROM/manifesto.git"
-                mainbranch="p9.0"
+                mainrepo="https://github.com/crdroidandroid/android.git"
+                mainbranch="9.0"
                 localManifestBranch="android-9.0"
                 treble_generate="floko"
                 extra_make_options="WITHOUT_CHECK_API=true"
@@ -410,43 +410,18 @@ if [[ "$@" == *"pixel90"* ]];then
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_googleapps
     rm -rf patches/patches/vendor_rr
-elif [[ "$@" == *"aicpp90"* ]];then
-    rm -rf patches/patches/vendor_aosp
-    rm -rf patches/patches/vendor_googleapps
-    rm -rf patches/patches/vendor_rr
-elif [[ "$@" == *"flokop"* ]];then
-    rm -rf patches/patches/vendor_aosp
-    rm -rf patches/patches/vendor_googleapps
-    rm -rf patches/patches/vendor_rr
-elif [[ "$@" == *"pixeldust90"* ]];then
-    rm -rf patches/patches/device_aicp_sepolicy/
-    rm -rf patches/patches/vendor_aicp
-    rm -rf patches/patches/vendor_aosp
-    rm -rf patches/patches/vendor_rr
-elif [[ "$@" == *"rr"* ]];then
-    rm -rf patches/patches/device_aicp_sepolicy/
-    rm -rf patches/patches/vendor_aicp
-    rm -rf patches/patches/vendor_aosp
-    rm -rf patches/patches/vendor_googleapps
-elif [[ "$@" == *"aex"* ]];then
-    rm -rf patches/patches/device_aicp_sepolicy/
-    rm -rf patches/patches/vendor_aicp
-    rm -rf patches/patches/vendor_rr
-    rm -rf patches/patches/vendor_googleapps
+    rm -rf patches/patches/vendor_crdroid
 else
     rm -rf patches/patches/device_aicp_sepolicy/
     rm -rf patches/patches/vendor_aicp
     rm -rf patches/patches/vendor_aosp
     rm -rf patches/patches/vendor_googleapps
     rm -rf patches/patches/vendor_rr
+    rm -rf patches/patches/vendor_crdroid
 fi
 
 if [[ "$@" != *"gapps"* ]];then
     rm -f .repo/local_manifests/opengapps.xml
-fi
-
-if [[ "$@" != *"aex"* ]];then
-    rm -f .repo/local_manifests/device.xml
 fi
 
 sync_repo
@@ -458,22 +433,20 @@ fi
 fi
 patch_things
 
-if [[ "$@" == *"rr"* ]];then
+if [[ "$@" == *"flokop"* ]];then
     pushd `pwd`
-    cd vendor/rr
-    patch="../../patches/patches/vendor_rr/0002-wallpaper.patch"
-    if git apply --check $patch;then
-        git am $patch
-    fi
+    cd device/phh/treble
+    git revert --no-edit df25576594f684ed35610b7cc1db2b72bc1fc4d6
     popd
-fi
-if [[ "$@" == *"aex"* ]];then
+
     pushd `pwd`
-    cd vendor/aosp
-    patch="../../patches/patches/vendor_aosp/0002-Remove-Turbo.patch"
-    if git apply --check $patch;then
-        git am $patch
-    fi
+    cd external/tinycompress
+    git revert --no-edit fbe2bd5c3d670234c3c92f875986acc148e6d792
+    popd
+
+    pushd `pwd`
+    cd vendor/qcom/opensource/cryptfs_hw
+    git revert --no-edit 6a3fc11bcc95d1abebb60e5d714adf75ece83102
     popd
 fi
 
