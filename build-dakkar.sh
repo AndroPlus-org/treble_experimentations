@@ -447,6 +447,10 @@ if [[ "$@" == *"flokop"* ]];then
     pushd `pwd`
     cd vendor/qcom/opensource/cryptfs_hw
     git revert --no-edit 6a3fc11bcc95d1abebb60e5d714adf75ece83102
+    patch="../../patches/vendor_qcom_opensource_cryptfs_hw/0001-header-hack.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
     popd
 fi
 
