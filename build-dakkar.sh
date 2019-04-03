@@ -11,6 +11,8 @@ export GAPPS_SOURCES_PATH=vendor/opengapps/sources/
 
 rom_fp="$(date +%y%m%d)"
 
+dir=$(pwd)
+
 myname="$(basename "$0")"
 if [[ $(uname -s) = "Darwin" ]];then
     jobs=$(sysctl -n hw.ncpu)
@@ -369,8 +371,7 @@ function build_variant() {
     make $extra_make_options BUILD_NUMBER="$rom_fp" -j "$jobs" systemimage
     # make $extra_make_options BUILD_NUMBER="$rom_fp" vndk-test-sepolicy
     cp "$OUT"/system.img release/"$rom_fp"/system-"$2".img
-    cp "$OUT"/*hangelog.txt release/"$rom_fp"/Changelog.txt
-    rm -rf "$OUT"/*hangelog.txt
+    cp "$OUT"/Changelog.txt release/"$rom_fp"/Changelog.txt
     zip -rj release/"$rom_fp"/system-"$2".img.zip release/"$rom_fp"/system-"$2".img
 }
 
@@ -405,21 +406,6 @@ init_main_repo
 init_local_manifest
 init_patches
 
-if [[ "$@" == *"pixel90"* ]];then
-    rm -rf patches/patches/device_aicp_sepolicy/
-    rm -rf patches/patches/vendor_aicp
-    rm -rf patches/patches/vendor_googleapps
-    rm -rf patches/patches/vendor_rr
-    rm -rf patches/patches/vendor_crdroid
-else
-    rm -rf patches/patches/device_aicp_sepolicy/
-    rm -rf patches/patches/vendor_aicp
-    rm -rf patches/patches/vendor_aosp
-    rm -rf patches/patches/vendor_googleapps
-    rm -rf patches/patches/vendor_rr
-    rm -rf patches/patches/vendor_crdroid
-fi
-
 if [[ "$@" != *"gapps"* ]];then
     rm -f .repo/local_manifests/opengapps.xml
 fi
@@ -431,23 +417,45 @@ elif [[ "$@" == *"rr"* ]];then
     rm -rf system/extras/su
 fi
 fi
+
 patch_things
 
 if [[ "$@" == *"flokop"* ]];then
     pushd `pwd`
-    cd device/phh/treble
-    git revert --no-edit df25576594f684ed35610b7cc1db2b72bc1fc4d6
+    cd external/tinycompress
+    git clean -fdx; git reset --hard
+    patch="${dir}/patches/floko-p/external_tinycompress/0001-Revert-tinycompress-Use-generated-kernel-headers.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
     popd
 
     pushd `pwd`
-    cd external/tinycompress
-    git revert --no-edit fbe2bd5c3d670234c3c92f875986acc148e6d792
+    cd vendor/addons
+    git clean -fdx; git reset --hard
+    patch="${dir}/patches/floko-p/vendor_addons/0001-Remove-turbo.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+    popd
+
+    pushd `pwd`
+    cd vendor/lineage
+    git clean -fdx; git reset --hard
+    patch="${dir}/patches/floko-p/vendor_lineage/0001-disable-generated-kernel.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
     popd
 
     pushd `pwd`
     cd vendor/qcom/opensource/cryptfs_hw
-    git revert --no-edit 6a3fc11bcc95d1abebb60e5d714adf75ece83102
-    patch="../../patches/vendor_qcom_opensource_cryptfs_hw/0001-header-hack.patch"
+    git clean -fdx; git reset --hard
+    patch="${dir}/patches/floko-p/vendor_qcom_opensource_cryptfs_hw/0001-Revert-cryptfs_hw-Use-generated-kernel-headers.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+    patch="${dir}/patches/floko-p/vendor_qcom_opensource_cryptfs_hw/0002-header-hack.patch"
     if git apply --check $patch;then
         git am $patch
     fi
