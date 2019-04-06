@@ -188,7 +188,7 @@ function get_rom_type() {
                 extra_make_options="WITHOUT_CHECK_API=true"
                 ;;
             flokop)
-                mainrepo="https://github.com/crdroidandroid/android.git"
+                mainrepo="https://github.com/FlokoROM/manifesto.git"
                 mainbranch="9.0"
                 localManifestBranch="android-9.0"
                 treble_generate="floko"
