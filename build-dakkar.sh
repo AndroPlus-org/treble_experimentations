@@ -370,8 +370,8 @@ function build_variant() {
     make $extra_make_options BUILD_NUMBER="$rom_fp" installclean
     make $extra_make_options BUILD_NUMBER="$rom_fp" -j "$jobs" systemimage
     # make $extra_make_options BUILD_NUMBER="$rom_fp" vndk-test-sepolicy
-    if [ -e "$OUT"/Changelog.txt ]; then
-        cp "$OUT"/Changelog.txt release/"$rom_fp"/Changelog.txt
+    if ls "$OUT"/changelog_*.txt 1> /dev/null 2>&1; then
+        cp "$OUT"/changelog_*.txt release/"$rom_fp"/changelog.txt
     fi
     if [ -e "$OUT"/system.img ]; then
         cp "$OUT"/system.img release/"$rom_fp"/system-"$2".img
