@@ -10,11 +10,11 @@ if [ -z "$USER" ];then
 fi
 export LC_ALL=C
 
-aosp="android-8.1.0_r62"
+aosp="android-8.1.0_r64"
 phh="android-8.1"
 
 if [ "$1" == "android-9.0" ];then
-    aosp="android-9.0.0_r35"
+    aosp="android-9.0.0_r36"
     phh="android-9.0"
 fi
 
@@ -32,7 +32,7 @@ else
 fi
 repo sync -c -j 1 --force-sync
 (cd device/phh/treble; git clean -fdx; bash generate.sh)
-(cd vendor/foss; git clean -fdx; bash update.sh)
+#(cd vendor/foss; git clean -fdx; bash update.sh)
 
 . build/envsetup.sh
 
@@ -50,11 +50,11 @@ cp patches.zip release/$rom_fp/patches.zip
 
 buildVariant treble_arm64_avN-userdebug arm64-aonly-vanilla-nosu
 buildVariant treble_arm64_agS-userdebug arm64-aonly-gapps-su
-buildVariant treble_arm64_afS-userdebug arm64-aonly-floss-su
+#buildVariant treble_arm64_afS-userdebug arm64-aonly-floss-su
 
 buildVariant treble_arm64_bvN-userdebug arm64-ab-vanilla-nosu
 buildVariant treble_arm64_bgS-userdebug arm64-ab-gapps-su
-buildVariant treble_arm64_bfS-userdebug arm64-ab-floss-su
+#buildVariant treble_arm64_bfS-userdebug arm64-ab-floss-su
 
 buildVariant treble_arm_avN-userdebug arm-aonly-vanilla-nosu
 [ "$1" != "android-9.0" ] && buildVariant treble_arm_aoS-userdebug arm-aonly-go-su
@@ -63,8 +63,10 @@ buildVariant treble_arm_agS-userdebug arm-aonly-gapps-su
 buildVariant treble_a64_avN-userdebug arm32_binder64-aonly-vanilla-nosu
 buildVariant treble_a64_agS-userdebug arm32_binder64-aonly-gapps-su
 
+if [ "$1" = "android-9.0" ];then
 buildVariant treble_a64_bvN-userdebug arm32_binder64-ab-vanilla-nosu
 buildVariant treble_a64_bgS-userdebug arm32_binder64-ab-gapps-su
+fi
 
 if [ "$release" == true ];then
     (
