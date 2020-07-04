@@ -1,0 +1,56 @@
+From ceeffd7fe44a297abd75adfd1aec60a628684496 Mon Sep 17 00:00:00 2001
+From: AndroPlus <mail@andro.plus>
+Date: Sat, 4 Jul 2020 19:45:31 +0900
+Subject: [PATCH 1/1] Remove duplicated files
+
+Signed-off-by: AndroPlus <mail@andro.plus>
+---
+ target/product/full_base_telephony.mk |  8 ++++----
+ target/product/gsi_common.mk          | 12 ++++++------
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/target/product/full_base_telephony.mk b/target/product/full_base_telephony.mk
+index e3442147a..8ae18300b 100644
+--- a/target/product/full_base_telephony.mk
++++ b/target/product/full_base_telephony.mk
+@@ -30,10 +30,10 @@ endif
+ PRODUCT_COPY_FILES := \
+     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
+ 
+-ifeq ($(LINEAGE_BUILD),)
+-PRODUCT_COPY_FILES += \
+-    device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
+-endif
++#ifeq ($(LINEAGE_BUILD),)
++#PRODUCT_COPY_FILES += \
++#    device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
++#endif
+ 
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony.mk)
+diff --git a/target/product/gsi_common.mk b/target/product/gsi_common.mk
+index 6507adb95..57b92db56 100644
+--- a/target/product/gsi_common.mk
++++ b/target/product/gsi_common.mk
+@@ -94,12 +94,12 @@ PRODUCT_PACKAGES += \
+ 
+ # Telephony:
+ #   Provide a APN configuration to GSI product
+-ifeq ($(LINEAGE_BUILD),)
+-PRODUCT_COPY_FILES += \
+-    device/sample/etc/apns-full-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
+-endif
++#ifeq ($(LINEAGE_BUILD),)
++#PRODUCT_COPY_FILES += \
++#    device/sample/etc/apns-full-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
++#endif
+ 
+ # NFC:
+ #   Provide a libnfc-nci.conf to GSI product
+-PRODUCT_COPY_FILES += \
+-    device/generic/common/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf
++#PRODUCT_COPY_FILES += \
++#    device/generic/common/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf
+-- 
+2.17.1
+

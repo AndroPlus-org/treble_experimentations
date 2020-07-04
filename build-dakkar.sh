@@ -290,7 +290,7 @@ function get_rom_type() {
                 mainbranch="10.0"
                 localManifestBranch="android-10.0"
                 treble_generate="floko3"
-                extra_make_options="WITHOUT_CHECK_API=true"
+                extra_make_options="WITHOUT_CHECK_API=true ALLOW_MISSING_DEPENDENCIES=true"
                 jack_enabled="false"
                 ;;
 	   graphene10)
@@ -509,6 +509,15 @@ patch_things
 
 if [[ "$@" == *"floko3"* ]];then
     pushd `pwd`
+    cd build/make
+    git clean -fdx; git reset --hard
+    patch="../../$(dirname "$0")/patches/build_make/0001-Remove-duplicated-files.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+    popd
+
+    pushd `pwd`
     cd external/tinycompress
     git clean -fdx; git reset --hard
     patch="../../$(dirname "$0")/patches/external_tinycompress/0001-Revert-tinycompress-Use-generated-kernel-headers.patch"
@@ -521,6 +530,15 @@ if [[ "$@" == *"floko3"* ]];then
     cd vendor/lineage
     git clean -fdx; git reset --hard
     patch="../../$(dirname "$0")/patches/vendor_lineage/0001-disable-generated-kernel.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+    popd
+
+    pushd `pwd`
+    cd hardware/lineage/interfaces/cryptfshw
+    git clean -fdx; git reset --hard
+    patch="../../../../$(dirname "$0")/patches/interfaces_cryptfshw/0001-Revert-generated_kernel_headers.patch"
     if git apply --check $patch;then
         git am $patch
     fi
