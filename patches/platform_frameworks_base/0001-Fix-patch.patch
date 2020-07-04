@@ -1,0 +1,33 @@
+From 691116bb93a74c0e5d52cd325c1c2d6f4e81dc45 Mon Sep 17 00:00:00 2001
+From: AndroPlus <mail@andro.plus>
+Date: Sat, 4 Jul 2020 20:47:28 +0900
+Subject: [PATCH 1/1] Fix patch
+
+Signed-off-by: AndroPlus <mail@andro.plus>
+---
+ services/core/java/com/android/server/wm/ActivityRecord.java | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/services/core/java/com/android/server/wm/ActivityRecord.java b/services/core/java/com/android/server/wm/ActivityRecord.java
+index 1e9db22adbd..3e0364ae475 100644
+--- a/services/core/java/com/android/server/wm/ActivityRecord.java
++++ b/services/core/java/com/android/server/wm/ActivityRecord.java
+@@ -192,6 +192,7 @@ import android.os.PersistableBundle;
+ import android.os.Process;
+ import android.os.RemoteException;
+ import android.os.SystemClock;
++import android.os.SystemProperties;
+ import android.os.UserHandle;
+ import android.os.storage.StorageManager;
+ import android.provider.Settings;
+@@ -2861,6 +2862,7 @@ final class ActivityRecord extends ConfigurationContainer {
+     // TODO(b/36505427): Consider moving this method and similar ones to ConfigurationContainer.
+     private void updateOverrideConfiguration() {
+         final Configuration overrideConfig = mTmpConfig;
++        float maxAspectRatio = info.maxAspectRatio;
+         if(info.applicationInfo.targetSdkVersion < O) {
+             try {
+                 maxAspectRatio = Float.parseFloat(SystemProperties.get("persist.sys.max_aspect_ratio.pre_o", ""));
+-- 
+2.17.1
+

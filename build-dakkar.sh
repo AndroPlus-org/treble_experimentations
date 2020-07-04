@@ -505,6 +505,12 @@ if [[ $build_dakkar_choice == *"y"* ]];then
     sync_repo
 fi
 
+if [[ "$@" == *"floko3"* ]];then
+    rm -f patches/patches/platform_frameworks_opt_telephony/0005-Reverse-engineer-MTK-IRadio-interfaces-to-approve-in.patch
+    rm -f patches/patches/platform_frameworks_opt_telephony/0006-Plugin-Samsung-RadioIndication-RadioResponse-to-get-.patch
+    rm -f patches/patches/platform_packages_services_Telephony/0006-Add-isApplicationOnUicc-API.patch
+fi
+
 patch_things
 
 if [[ "$@" == *"floko3"* ]];then
@@ -512,6 +518,20 @@ if [[ "$@" == *"floko3"* ]];then
     cd build/make
     git clean -fdx; git reset --hard
     patch="../../$(dirname "$0")/patches/build_make/0001-Remove-duplicated-files.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+    popd
+
+    pushd `pwd`
+    cd frameworks/base
+    git clean -fdx; git reset --hard
+    patch="../../$(dirname "$0")/patches/platform_frameworks_base/0001-Fix-patch.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+
+    patch="../../$(dirname "$0")/patches/platform_frameworks_base/0002-Fix-patch.patch"
     if git apply --check $patch;then
         git am $patch
     fi
