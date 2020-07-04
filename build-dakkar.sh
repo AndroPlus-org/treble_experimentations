@@ -509,6 +509,15 @@ patch_things
 
 if [[ "$@" == *"floko3"* ]];then
     pushd `pwd`
+    cd external/tinycompress
+    git clean -fdx; git reset --hard
+    patch="../../$(dirname "$0")/patches/external_tinycompress/0001-Revert-tinycompress-Use-generated-kernel-headers.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+    popd
+
+    pushd `pwd`
     cd vendor/lineage
     git clean -fdx; git reset --hard
     patch="../../$(dirname "$0")/patches/vendor_lineage/0001-disable-generated-kernel.patch"
