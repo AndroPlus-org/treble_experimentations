@@ -63,6 +63,7 @@ ROM types:
   slim-oreo
   graphene9
   graphene10
+  floko3
 
 Variants are dash-joined combinations of (in order):
 * processor type
@@ -284,6 +285,14 @@ function get_rom_type() {
                 extra_make_options="WITHOUT_CHECK_API=true"
                 jack_enabled="false"
                 ;;
+            floko3)
+                mainrepo="https://github.com/FlokoROM/manifesto.git"
+                mainbranch="10.0"
+                localManifestBranch="android-10.0"
+                treble_generate="floko3"
+                extra_make_options="WITHOUT_CHECK_API=true"
+                jack_enabled="false"
+                ;;
 	   graphene10)
 	   	mainrepo="https://github.com/GrapheneOS/platform_manifest.git"
 		mainbranch="10"
@@ -382,7 +391,7 @@ function clone_or_checkout() {
             git checkout origin/"$localManifestBranch"
         )
     else
-        git clone https://github.com/phhusson/"$repo" "$dir" -b "$localManifestBranch"
+        git clone https://github.com/FlokoROM-GSI/"$repo" "$dir" -b "$localManifestBranch"
     fi
 }
 
