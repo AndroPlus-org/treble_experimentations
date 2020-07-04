@@ -507,6 +507,17 @@ fi
 
 patch_things
 
+if [[ "$@" == *"floko3"* ]];then
+    pushd `pwd`
+    cd vendor/lineage
+    git clean -fdx; git reset --hard
+    patch="../../$(dirname "$0")/patches/vendor_lineage/0001-disable-generated-kernel.patch"
+    if git apply --check $patch;then
+        git am $patch
+    fi
+    popd
+fi
+
 if [[ $jack_enabled == "true" ]]; then
     jack_env
 fi
